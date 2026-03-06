@@ -95,14 +95,14 @@
             color: var(--green);
             margin-bottom: 1.5rem;
             opacity: 0;
-            animation: popIn 0.5s ease-out 0.2s forwards;
+            animation: popIn 0.5s ease-out 0.4s forwards;
         }
 
         .hero-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             opacity: 0;
-            animation: dropIn 0.6s ease-out 0.1s forwards;
+            animation: dropIn 0.6s ease-out 0.3s forwards;
         }
 
         .hero-title {
@@ -111,7 +111,7 @@
             line-height: 1;
             margin-bottom: 0.5rem;
             opacity: 0;
-            animation: slideUp 0.6s ease-out 0.3s forwards;
+            animation: slideUp 0.6s ease-out 0.5s forwards;
         }
 
         .green { color: var(--green); }
@@ -123,7 +123,7 @@
             color: var(--green);
             margin-bottom: 2rem;
             opacity: 0;
-            animation: slideUp 0.6s ease-out 0.45s forwards;
+            animation: slideUp 0.6s ease-out 0.65s forwards;
         }
 
         .hero-hook {
@@ -133,7 +133,7 @@
             color: var(--gray-light);
             margin-bottom: 2.5rem;
             opacity: 0;
-            animation: slideUp 0.6s ease-out 0.6s forwards;
+            animation: slideUp 0.6s ease-out 0.8s forwards;
         }
 
         .hero-hook strong { color: var(--white); }
@@ -146,7 +146,7 @@
             border-radius: 18px;
             overflow: hidden;
             opacity: 0;
-            animation: slideUp 0.5s ease-out 0.75s forwards, glow 3s ease-in-out infinite 1.5s;
+            animation: slideUp 0.5s ease-out 0.95s forwards, glow 3s ease-in-out infinite 1.5s;
         }
 
         .tabata-half {
@@ -189,7 +189,7 @@
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
-            animation: slideUp 0.5s ease-out 1s forwards, bounce 2.5s ease-in-out infinite 1.5s;
+            animation: slideUp 0.5s ease-out 1.2s forwards, bounce 2.5s ease-in-out infinite 1.8s;
             cursor: pointer;
         }
 
@@ -446,6 +446,25 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
+        .hero-logo {
+            width: clamp(180px, 40vw, 280px);
+            height: auto;
+            opacity: 0;
+            animation: popIn 0.6s ease-out 0s forwards;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 30px rgba(126, 217, 87, 0.15));
+        }
+
+        .foot-logo {
+            width: 140px;
+            height: auto;
+            margin-bottom: 0.5rem;
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+        .foot-logo:hover { opacity: 1; }
+
         .foot-brand {
             font-size: 1.1rem;
             font-weight: 900;
@@ -541,6 +560,8 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+
+    <img src="assets/1_HARIM+Icon Green.png" alt="סטודיו Harim" class="hero-logo">
 
     <div class="hero-icon">🧴</div>
 
@@ -707,6 +728,7 @@
 
 <!-- ===== FOOTER ===== -->
 <footer>
+    <img src="assets/1_HARIM+Icon White.png" alt="סטודיו Harim" class="foot-logo">
     <div class="foot-brand">סטודיו <span class="green">Harim</span></div>
     <div class="foot-loc">חד נס, רמת הגולן &bull; באנו להרים</div>
     <div class="foot-links">
