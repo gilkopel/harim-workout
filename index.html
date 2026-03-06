@@ -99,7 +99,7 @@
         }
 
         .hero-bottle {
-            width: clamp(100px, 25vw, 160px);
+            width: clamp(110px, 28vw, 180px);
             height: auto;
             margin-bottom: 1.5rem;
             opacity: 0;
@@ -107,6 +107,11 @@
             filter: drop-shadow(0 20px 40px rgba(126, 217, 87, 0.2)) drop-shadow(0 8px 16px rgba(0,0,0,0.3));
             position: relative;
             z-index: 2;
+            transition: filter 0.3s;
+        }
+
+        .hero-bottle.scroll-active {
+            animation: none;
         }
 
         @keyframes bottleFloat {
@@ -147,6 +152,12 @@
         }
 
         .hero-hook strong { color: var(--white); }
+
+        .hero-hook .hook-aside {
+            font-size: 0.82em;
+            color: var(--gray);
+            font-weight: 400;
+        }
 
         /* Tabata pill */
         .tabata {
@@ -193,21 +204,35 @@
             50% { box-shadow: 0 0 30px 5px rgba(126, 217, 87, 0.15); }
         }
 
-        .scroll-arrow {
-            position: absolute;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
+        .tabata-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
             opacity: 0;
-            animation: slideUp 0.5s ease-out 1.2s forwards, bounce 2.5s ease-in-out infinite 1.8s;
+            animation: slideUp 0.5s ease-out 0.9s forwards;
+        }
+
+        .tabata-title {
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.4em;
+            color: var(--green);
+            text-shadow: 0 0 20px rgba(126, 217, 87, 0.3);
+        }
+
+        .scroll-arrow {
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: slideUp 0.5s ease-out 1.2s forwards, bounceArrow 2.5s ease-in-out infinite 1.8s;
             cursor: pointer;
         }
 
         .scroll-arrow svg { width: 32px; height: 32px; stroke: var(--gray); stroke-width: 1.5; }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+        @keyframes bounceArrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
         }
 
         /* ===== EQUIPMENT ===== */
@@ -448,6 +473,40 @@
 
         .cta svg { width: 20px; height: 20px; }
 
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: transparent;
+            color: var(--green);
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: 2px solid var(--green);
+            border-radius: 16px;
+            padding: 0.85rem 1.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), background 0.3s, color 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-3px) scale(1.03);
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .cta-secondary svg { width: 20px; height: 20px; }
+
+        .closing-ctas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             padding: 2.5rem 1.5rem;
@@ -573,43 +632,47 @@
 
     <img src="assets/1_HARIM+Icon Green.png" alt="סטודיו Harim" class="hero-logo">
 
-    <svg class="hero-bottle" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="hero-bottle" viewBox="0 0 200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ground shadow -->
+        <ellipse cx="100" cy="348" rx="52" ry="7" fill="rgba(0,0,0,0.12)"/>
         <!-- Cap -->
-        <rect x="72" y="4" width="56" height="28" rx="8" fill="#9B72CF"/>
-        <rect x="78" y="0" width="44" height="10" rx="5" fill="#b48ee0"/>
+        <rect x="74" y="4" width="52" height="24" rx="7" fill="#9B72CF"/>
+        <rect x="79" y="0" width="42" height="10" rx="5" fill="#b48ee0"/>
+        <rect x="81" y="2" width="8" height="6" rx="2" fill="rgba(255,255,255,0.2)"/>
         <!-- Neck -->
-        <rect x="80" y="30" width="40" height="24" rx="4" fill="#e8e8e8"/>
+        <path d="M80 28 L80 54 Q80 58 76 60 L124 60 Q120 58 120 54 L120 28 Z" fill="#efefef" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
         <!-- Handle -->
-        <path d="M120 38 Q155 38 155 75 Q155 110 130 115" stroke="#d0d0d0" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <path d="M120 38 Q150 38 150 75 Q150 106 128 112" stroke="#e8e8e8" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <!-- Body -->
-        <path d="M60 54 Q60 54 55 80 L45 280 Q42 310 65 325 L135 325 Q158 310 155 280 L145 80 Q140 54 140 54 Z" fill="url(#bottleGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-        <!-- Body shine -->
-        <path d="M68 80 L62 270 Q60 295 72 310 L78 310 Q66 295 68 270 Z" fill="rgba(255,255,255,0.12)" rx="4"/>
-        <!-- Label area -->
-        <rect x="58" y="130" width="84" height="120" rx="12" fill="rgba(126,217,87,0.15)" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="0"/>
-        <!-- Label text - flower icon -->
-        <circle cx="100" cy="170" r="18" fill="none" stroke="#7ED957" stroke-width="2"/>
-        <circle cx="100" cy="170" r="6" fill="#7ED957" opacity="0.6"/>
-        <path d="M100 152 Q108 160 100 164 Q92 160 100 152Z" fill="#7ED957" opacity="0.4"/>
-        <path d="M100 176 Q108 168 100 164 Q92 168 100 176Z" fill="#7ED957" opacity="0.4"/>
-        <path d="M82 170 Q90 162 94 170 Q90 178 82 170Z" fill="#7ED957" opacity="0.4"/>
-        <path d="M118 170 Q110 162 106 170 Q110 178 118 170Z" fill="#7ED957" opacity="0.4"/>
+        <path d="M120 36 Q158 38 158 78 Q158 118 134 124" stroke="#ddd" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M120 36 Q154 38 154 78 Q154 114 133 121" stroke="#efefef" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- Body - wide rounded softener shape -->
+        <path d="M76 60 Q52 72 44 112 L38 278 Q36 318 66 338 L134 338 Q164 318 162 278 L156 112 Q148 72 124 60 Z" fill="url(#bottleGrad)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <!-- Body left shine -->
+        <path d="M60 88 L54 268 Q52 308 72 328 L78 328 Q58 308 60 268 Z" fill="rgba(255,255,255,0.1)"/>
+        <!-- Body right subtle shine -->
+        <path d="M150 105 L152 195 L148 195 L146 105 Z" fill="rgba(255,255,255,0.05)"/>
+        <!-- Label background -->
+        <rect x="52" y="142" width="96" height="130" rx="14" fill="rgba(126,217,87,0.1)" stroke="#7ED957" stroke-width="1.5"/>
+        <!-- Flower icon -->
+        <circle cx="100" cy="182" r="20" fill="none" stroke="#7ED957" stroke-width="1.5" opacity="0.7"/>
+        <circle cx="100" cy="182" r="7" fill="#7ED957" opacity="0.4"/>
+        <ellipse cx="100" cy="164" rx="5" ry="8" fill="#7ED957" opacity="0.25"/>
+        <ellipse cx="100" cy="200" rx="5" ry="8" fill="#7ED957" opacity="0.25"/>
+        <ellipse cx="82" cy="182" rx="8" ry="5" fill="#7ED957" opacity="0.25"/>
+        <ellipse cx="118" cy="182" rx="8" ry="5" fill="#7ED957" opacity="0.25"/>
         <!-- Label text lines -->
-        <rect x="78" y="200" width="44" height="4" rx="2" fill="#7ED957" opacity="0.5"/>
-        <rect x="85" y="212" width="30" height="3" rx="1.5" fill="#7ED957" opacity="0.3"/>
-        <rect x="82" y="222" width="36" height="3" rx="1.5" fill="#7ED957" opacity="0.3"/>
-        <!-- 4L text -->
-        <text x="100" y="240" text-anchor="middle" fill="#7ED957" font-family="Heebo, sans-serif" font-size="14" font-weight="900" opacity="0.7">4L</text>
-        <!-- Bottom ridge -->
-        <ellipse cx="100" cy="325" rx="45" ry="6" fill="rgba(0,0,0,0.15)"/>
+        <rect x="72" y="216" width="56" height="4" rx="2" fill="#7ED957" opacity="0.4"/>
+        <rect x="80" y="228" width="40" height="3" rx="1.5" fill="#7ED957" opacity="0.25"/>
+        <rect x="76" y="238" width="48" height="3" rx="1.5" fill="#7ED957" opacity="0.25"/>
+        <!-- 4L -->
+        <text x="100" y="262" text-anchor="middle" fill="#7ED957" font-family="Heebo, sans-serif" font-size="15" font-weight="900" opacity="0.55">4L</text>
         <!-- Liquid level hint -->
-        <path d="M52 250 Q55 245 100 248 Q145 251 148 250 L155 280 Q158 310 135 325 L65 325 Q42 310 45 280 Z" fill="rgba(126,217,87,0.08)"/>
+        <path d="M44 265 Q52 258 100 262 Q148 266 156 265 L162 278 Q164 318 134 338 L66 338 Q36 318 38 278 Z" fill="rgba(126,217,87,0.06)"/>
         <defs>
-            <linearGradient id="bottleGrad" x1="40" y1="54" x2="160" y2="325" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#f5f5f5"/>
-                <stop offset="40%" stop-color="#e8e8e8"/>
-                <stop offset="100%" stop-color="#d4d4d4"/>
+            <linearGradient id="bottleGrad" x1="30" y1="60" x2="170" y2="338" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#f8f8f8"/>
+                <stop offset="25%" stop-color="#f2f2f2"/>
+                <stop offset="60%" stop-color="#e6e6e6"/>
+                <stop offset="100%" stop-color="#dadada"/>
             </linearGradient>
         </defs>
     </svg>
@@ -625,17 +688,20 @@
     <p class="hero-hook">
         <strong>הלכת לשים כביסה?</strong><br>
         תפסי את המרכך ותעשי אימון על הדרך.<br>
-        <strong>מלחמה היא לא תירוץ.</strong>
+        <span class="hook-aside">(מלחמה היא לא תירוץ 😉)</span>
     </p>
 
-    <div class="tabata">
-        <div class="tabata-half tabata-work">
-            <div class="tabata-num">20</div>
-            <div class="tabata-label">שניות עבודה</div>
-        </div>
-        <div class="tabata-half tabata-rest">
-            <div class="tabata-num">10</div>
-            <div class="tabata-label">שניות מנוחה</div>
+    <div class="tabata-wrap">
+        <div class="tabata-title">T A B A T A</div>
+        <div class="tabata" style="opacity:1;animation:glow 3s ease-in-out infinite 1.5s;">
+            <div class="tabata-half tabata-work">
+                <div class="tabata-num">20</div>
+                <div class="tabata-label">שניות עבודה</div>
+            </div>
+            <div class="tabata-half tabata-rest">
+                <div class="tabata-num">10</div>
+                <div class="tabata-label">שניות מנוחה</div>
+            </div>
         </div>
     </div>
 
@@ -651,10 +717,13 @@
         <div class="equip-item stagger">
             <div class="equip-circle">
                 <svg viewBox="0 0 64 64" fill="none">
-                    <rect x="20" y="10" width="24" height="40" rx="5" stroke="#7ED957" stroke-width="2.5"/>
-                    <rect x="25" y="5" width="14" height="9" rx="3" stroke="#7ED957" stroke-width="2"/>
-                    <rect x="25" y="50" width="14" height="8" rx="2" fill="#7ED957" opacity="0.2"/>
-                    <path d="M28 24h8M28 30h8M28 36h8" stroke="#7ED957" stroke-width="1.5" opacity="0.4"/>
+                    <!-- Softener bottle icon -->
+                    <rect x="24" y="6" width="16" height="7" rx="3" fill="#7ED957" opacity="0.5"/>
+                    <rect x="26" y="12" width="12" height="5" rx="1.5" stroke="#7ED957" stroke-width="1.5" fill="none"/>
+                    <path d="M40 14 Q50 14 50 24 Q50 34 42 36" stroke="#7ED957" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M26 17 Q18 22 16 30 L14 48 Q13 55 22 56 L42 56 Q51 55 50 48 L48 30 Q46 22 38 17 Z" stroke="#7ED957" stroke-width="2.5" fill="none"/>
+                    <rect x="21" y="30" width="22" height="16" rx="3" fill="#7ED957" opacity="0.12" stroke="#7ED957" stroke-width="1"/>
+                    <circle cx="32" cy="37" r="3" stroke="#7ED957" stroke-width="1" fill="none" opacity="0.5"/>
                 </svg>
             </div>
             <div class="equip-name">מרכך כביסה</div>
@@ -662,11 +731,14 @@
         <div class="equip-item stagger" style="transition-delay:0.15s">
             <div class="equip-circle">
                 <svg viewBox="0 0 64 64" fill="none">
-                    <path d="M14 48h36" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
-                    <path d="M17 48V30h3v18" stroke="#7ED957" stroke-width="2"/>
-                    <path d="M44 48V30h3v18" stroke="#7ED957" stroke-width="2"/>
-                    <path d="M17 30h30" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
-                    <path d="M20 30V24h24v6" stroke="#7ED957" stroke-width="1.5" opacity="0.4"/>
+                    <!-- Chair icon - clear side view -->
+                    <rect x="16" y="10" width="32" height="22" rx="4" stroke="#7ED957" stroke-width="2.5" fill="none"/>
+                    <line x1="28" y1="12" x2="28" y2="30" stroke="#7ED957" stroke-width="1.5" opacity="0.3"/>
+                    <line x1="38" y1="12" x2="38" y2="30" stroke="#7ED957" stroke-width="1.5" opacity="0.3"/>
+                    <rect x="13" y="32" width="38" height="5" rx="2" stroke="#7ED957" stroke-width="2.5" fill="#7ED957" opacity="0.12"/>
+                    <line x1="17" y1="37" x2="14" y2="56" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="47" y1="37" x2="50" y2="56" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="16" y1="49" x2="48" y2="49" stroke="#7ED957" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
                 </svg>
             </div>
             <div class="equip-name">כיסא</div>
@@ -769,10 +841,16 @@
         <span class="green">בבית. בלי תירוצים.</span><br>
         את יכולה.
     </p>
-    <a href="https://instagram.com/shani_harimstudio" target="_blank" class="cta">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-        @shani_harimstudio
-    </a>
+    <div class="closing-ctas">
+        <a href="assets/infographic.png" download="אימון_המרכך_Harim.png" class="cta-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            הורידי את האימון להדפסה
+        </a>
+        <a href="https://instagram.com/shani_harimstudio" target="_blank" class="cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            @shani_harimstudio
+        </a>
+    </div>
 </section>
 
 <!-- ===== FOOTER ===== -->
@@ -804,6 +882,35 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+
+    /* Scroll-based bottle parallax */
+    const bottle = document.querySelector('.hero-bottle');
+    const hero = document.querySelector('.hero');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                const heroH = hero.offsetHeight;
+                if (scrollY > 0 && scrollY < heroH) {
+                    bottle.classList.add('scroll-active');
+                    const p = scrollY / heroH;
+                    const ty = p * -80;
+                    const rot = p * 18;
+                    const sc = 1 - p * 0.35;
+                    bottle.style.transform = `translateY(${ty}px) rotate(${rot}deg) scale(${sc})`;
+                    bottle.style.opacity = 1 - p * 0.8;
+                } else if (scrollY === 0) {
+                    bottle.classList.remove('scroll-active');
+                    bottle.style.transform = '';
+                    bottle.style.opacity = '';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 </script>
 
 </body>
