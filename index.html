@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אימון המרכך | סטודיו Harim</title>
+    <meta name="description" content="אימון ביתי של 5 דקות עם מרכך כביסה וכיסא. טבטה. בלי תירוצים.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #222831;
+            --bg-light: #2d333b;
+            --bg-card: #343a45;
+            --green: #7ED957;
+            --green-soft: rgba(126, 217, 87, 0.12);
+            --green-glow: rgba(126, 217, 87, 0.25);
+            --purple: #9B72CF;
+            --purple-soft: rgba(155, 114, 207, 0.12);
+            --white: #f0f0f0;
+            --gray: #9ca3af;
+            --gray-light: #d1d5db;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--bg);
+            color: var(--white);
+            direction: rtl;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(170deg, #1a2030 0%, var(--bg) 50%, #1e2a1e 100%);
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 300px; height: 300px;
+            background: rgba(126, 217, 87, 0.1);
+            top: -5%; right: -10%;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 250px; height: 250px;
+            background: rgba(155, 114, 207, 0.08);
+            bottom: 5%; left: -8%;
+            animation-delay: -4s;
+        }
+        .orb-3 {
+            width: 150px; height: 150px;
+            background: rgba(126, 217, 87, 0.06);
+            top: 40%; left: 20%;
+            animation-delay: -2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(15px, -20px) scale(1.05); }
+            66% { transform: translate(-10px, 10px) scale(0.95); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--green-soft);
+            border: 1px solid var(--green-glow);
+            border-radius: 100px;
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: popIn 0.5s ease-out 0.2s forwards;
+        }
+
+        .hero-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: dropIn 0.6s ease-out 0.1s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 11vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out 0.3s forwards;
+        }
+
+        .green { color: var(--green); }
+        .purple { color: var(--purple); }
+
+        .hero-sub {
+            font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out 0.45s forwards;
+        }
+
+        .hero-hook {
+            max-width: 550px;
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            line-height: 1.9;
+            color: var(--gray-light);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out 0.6s forwards;
+        }
+
+        .hero-hook strong { color: var(--white); }
+
+        /* Tabata pill */
+        .tabata {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.5s ease-out 0.75s forwards, glow 3s ease-in-out infinite 1.5s;
+        }
+
+        .tabata-half {
+            padding: 0.9rem 1.8rem;
+            text-align: center;
+        }
+
+        .tabata-work {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .tabata-rest {
+            background: var(--bg-card);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-right: none;
+            border-radius: 0 18px 18px 0;
+        }
+
+        .tabata-num {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .tabata-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            opacity: 0.7;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(126, 217, 87, 0.2); }
+            50% { box-shadow: 0 0 30px 5px rgba(126, 217, 87, 0.15); }
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: slideUp 0.5s ease-out 1s forwards, bounce 2.5s ease-in-out infinite 1.5s;
+            cursor: pointer;
+        }
+
+        .scroll-arrow svg { width: 32px; height: 32px; stroke: var(--gray); stroke-width: 1.5; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ===== EQUIPMENT ===== */
+        .equip {
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+            background: var(--bg-light);
+        }
+
+        .equip-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.08em;
+        }
+
+        .equip-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .equip-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .equip-circle {
+            width: 90px;
+            height: 90px;
+            background: var(--bg);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(126, 217, 87, 0.15);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .equip-circle:hover {
+            transform: scale(1.08) rotate(-3deg);
+            border-color: var(--green);
+        }
+
+        .equip-circle svg { width: 44px; height: 44px; }
+
+        .equip-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gray-light);
+        }
+
+        /* ===== EXERCISES ===== */
+        .exercises {
+            padding: 3rem 1.5rem 4rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .sec-head {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .sec-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .sec-title {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            font-weight: 900;
+        }
+
+        /* Exercise card */
+        .ex {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.6rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s;
+        }
+
+        .ex:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Green bar left (RTL = right side visually) */
+        .ex::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 0;
+            bottom: 12px;
+            width: 4px;
+            background: var(--green);
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ex-top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .ex-num {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: var(--green);
+            color: var(--bg);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            transition: transform 0.3s;
+        }
+
+        .ex:hover .ex-num { transform: scale(1.1) rotate(-5deg); }
+
+        .ex-name {
+            font-size: 1.15rem;
+            font-weight: 900;
+            flex: 1;
+        }
+
+        .ex-time {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 0.25rem 0.65rem;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .ex-desc {
+            color: var(--gray-light);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 0.7rem;
+            padding-right: 3.5rem;
+        }
+
+        .ex-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding-right: 3.5rem;
+        }
+
+        .ex-tag {
+            font-size: 0.75rem;
+            color: var(--gray);
+            background: rgba(255,255,255,0.06);
+            padding: 0.25rem 0.7rem;
+            border-radius: 100px;
+        }
+
+        /* Bonus */
+        .ex.bonus {
+            background: linear-gradient(135deg, rgba(155, 114, 207, 0.1), var(--bg-card));
+            border-color: rgba(155, 114, 207, 0.15);
+        }
+
+        .ex.bonus::after { background: var(--purple); }
+        .ex.bonus .ex-num { background: var(--purple); }
+        .ex.bonus .ex-time { color: var(--purple); background: var(--purple-soft); }
+
+        /* ===== CLOSING ===== */
+        .closing {
+            padding: 5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg) 0%, #1e2a1e 100%);
+            position: relative;
+        }
+
+        .closing-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(126, 217, 87, 0.08) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .closing-text {
+            font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            font-weight: 900;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--purple);
+            color: var(--white);
+            font-family: 'Heebo', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 16px;
+            padding: 1rem 2.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s;
+            position: relative;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 35px rgba(155, 114, 207, 0.4);
+        }
+
+        .cta svg { width: 20px; height: 20px; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            background: var(--bg-light);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .foot-brand {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 0.3rem;
+        }
+
+        .foot-brand .green { color: var(--green); }
+
+        .foot-loc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 1.2rem;
+        }
+
+        .foot-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .foot-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: var(--bg);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .foot-link:hover { border-color: var(--green); color: var(--green); }
+        .foot-link svg { width: 16px; height: 16px; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes dropIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.5); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(.22,.68,0,1), transform 0.7s cubic-bezier(.22,.68,0,1);
+        }
+
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered children */
+        .reveal.vis .ex:nth-child(1) { transition-delay: 0s; }
+        .reveal.vis .ex:nth-child(2) { transition-delay: 0.08s; }
+        .reveal.vis .ex:nth-child(3) { transition-delay: 0.16s; }
+        .reveal.vis .ex:nth-child(4) { transition-delay: 0.24s; }
+        .reveal.vis .ex:nth-child(5) { transition-delay: 0.32s; }
+        .reveal.vis .ex:nth-child(6) { transition-delay: 0.4s; }
+
+        .stagger { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+        .stagger.vis { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 500px) {
+            .hero { padding: 1.5rem 1.2rem; }
+            .ex-desc, .ex-tags { padding-right: 0; }
+            .ex-top { flex-wrap: wrap; }
+            .tabata-half { padding: 0.7rem 1.3rem; }
+            .tabata-num { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-icon">🧴</div>
+
+    <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        5 דקות בלבד
+    </div>
+
+    <h1 class="hero-title">אימון <span class="green">המרכך</span></h1>
+    <p class="hero-sub">5 דקות וזה מאחורייך</p>
+
+    <p class="hero-hook">
+        <strong>הלכת לשים כביסה?</strong><br>
+        תפסי את המרכך ותעשי אימון על הדרך.<br>
+        <strong>מלחמה היא לא תירוץ.</strong>
+    </p>
+
+    <div class="tabata">
+        <div class="tabata-half tabata-work">
+            <div class="tabata-num">20</div>
+            <div class="tabata-label">שניות עבודה</div>
+        </div>
+        <div class="tabata-half tabata-rest">
+            <div class="tabata-num">10</div>
+            <div class="tabata-label">שניות מנוחה</div>
+        </div>
+    </div>
+
+    <a href="#workout" class="scroll-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+</section>
+
+<!-- ===== EQUIPMENT ===== -->
+<section class="equip reveal" id="workout">
+    <div class="equip-label">מה צריך? כלום מיוחד</div>
+    <div class="equip-row">
+        <div class="equip-item stagger">
+            <div class="equip-circle">
+                <svg viewBox="0 0 64 64" fill="none">
+                    <rect x="20" y="10" width="24" height="40" rx="5" stroke="#7ED957" stroke-width="2.5"/>
+                    <rect x="25" y="5" width="14" height="9" rx="3" stroke="#7ED957" stroke-width="2"/>
+                    <rect x="25" y="50" width="14" height="8" rx="2" fill="#7ED957" opacity="0.2"/>
+                    <path d="M28 24h8M28 30h8M28 36h8" stroke="#7ED957" stroke-width="1.5" opacity="0.4"/>
+                </svg>
+            </div>
+            <div class="equip-name">מרכך כביסה</div>
+        </div>
+        <div class="equip-item stagger" style="transition-delay:0.15s">
+            <div class="equip-circle">
+                <svg viewBox="0 0 64 64" fill="none">
+                    <path d="M14 48h36" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M17 48V30h3v18" stroke="#7ED957" stroke-width="2"/>
+                    <path d="M44 48V30h3v18" stroke="#7ED957" stroke-width="2"/>
+                    <path d="M17 30h30" stroke="#7ED957" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M20 30V24h24v6" stroke="#7ED957" stroke-width="1.5" opacity="0.4"/>
+                </svg>
+            </div>
+            <div class="equip-name">כיסא</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== EXERCISES ===== -->
+<section class="exercises">
+    <div class="sec-head reveal">
+        <div class="sec-tag">פורמט טבטה &bull; 20/10</div>
+        <h2 class="sec-title">6 תרגילים. מתחילות.</h2>
+    </div>
+
+    <div class="ex stagger">
+        <div class="ex-top">
+            <div class="ex-num">1</div>
+            <div class="ex-name">סקוואט עם מרכך</div>
+            <span class="ex-time">20+10 שניות</span>
+        </div>
+        <p class="ex-desc">מחזיקה את המרכך בשתי הידיים מול הגוף. יורדת הכי נמוך שאפשר, עולה חזק.</p>
+        <div class="ex-tags">
+            <span class="ex-tag">ברכיים בקו עם כפות הרגליים</span>
+            <span class="ex-tag">גב ישר</span>
+            <span class="ex-tag">דחיפה חזקה</span>
+        </div>
+    </div>
+
+    <div class="ex stagger">
+        <div class="ex-top">
+            <div class="ex-num">2</div>
+            <div class="ex-name">דד ליפט עם מרכך</div>
+            <span class="ex-time">20+10 שניות</span>
+        </div>
+        <p class="ex-desc">המרכך מאחורי העורף. ברכיים כפופות טיפה, גב ישר. יורדת קדימה ועולה.</p>
+        <div class="ex-tags">
+            <span class="ex-tag">גב ישר תמיד</span>
+            <span class="ex-tag">שליטה, לא מומנטום</span>
+        </div>
+    </div>
+
+    <div class="ex stagger">
+        <div class="ex-top">
+            <div class="ex-num">3</div>
+            <div class="ex-name">דד ליפט על רגל אחת</div>
+            <span class="ex-time">20 שניות x2</span>
+        </div>
+        <p class="ex-desc">עומדת על רגל אחת. הרגל הנגדית עולה לאחור באוויר. יורדת עם הגוף קדימה ועולה.</p>
+        <div class="ex-tags">
+            <span class="ex-tag">שיווי משקל</span>
+            <span class="ex-tag">מבט קבוע</span>
+            <span class="ex-tag">20 שניות כל צד</span>
+        </div>
+    </div>
+
+    <div class="ex stagger">
+        <div class="ex-top">
+            <div class="ex-num">4</div>
+            <div class="ex-name">סקוואט בולגרי</div>
+            <span class="ex-time">20 שניות x2</span>
+        </div>
+        <p class="ex-desc">רגל אחורית על הכיסא. יורדת לסקוואט על הרגל הקדמית ועולה.</p>
+        <div class="ex-tags">
+            <span class="ex-tag">ברך לא חורגת</span>
+            <span class="ex-tag">אגן יציב</span>
+        </div>
+    </div>
+
+    <div class="ex stagger">
+        <div class="ex-top">
+            <div class="ex-num">5</div>
+            <div class="ex-name">היפ טראסט על רגל אחת</div>
+            <span class="ex-time">20 שניות x2</span>
+        </div>
+        <p class="ex-desc">גב נשען על הכיסא. רגל אחת באוויר. מורידה את האגן הכי נמוך ומכווצת חזק למעלה.</p>
+        <div class="ex-tags">
+            <span class="ex-tag">כיווץ מקסימלי למעלה</span>
+            <span class="ex-tag">תנועה מבוקרת</span>
+        </div>
+    </div>
+
+    <div class="ex bonus stagger">
+        <div class="ex-top">
+            <div class="ex-num">+</div>
+            <div class="ex-name">בונוס ליבה</div>
+            <span class="ex-time">30 שניות</span>
+        </div>
+        <p class="ex-desc">רוסיאן טוויסט עם המרכך, סיבוב מצד לצד. קראנצ'ים עם מרכך מעל הראש.</p>
+        <div class="ex-tags">
+            <span class="ex-tag">בלי ליבה חזקה אין יציבות</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="closing reveal">
+    <div class="closing-orb"></div>
+    <p class="closing-text">
+        5 דקות. מרכך. כיסא.<br>
+        <span class="green">בבית. בלי תירוצים.</span><br>
+        את יכולה.
+    </p>
+    <a href="https://instagram.com/shani_harimstudio" target="_blank" class="cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        עקבי אחרי שני
+    </a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="foot-brand">סטודיו <span class="green">Harim</span></div>
+    <div class="foot-loc">חד נס, רמת הגולן &bull; באנו להרים</div>
+    <div class="foot-links">
+        <a href="https://instagram.com/shani_harimstudio" target="_blank" class="foot-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
+            אינסטגרם
+        </a>
+        <a href="https://harimstudio.co.il" target="_blank" class="foot-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            אתר
+        </a>
+        <a href="tel:0524532215" class="foot-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            052-453-2215
+        </a>
+    </div>
+</footer>
+
+<script>
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('vis');
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
