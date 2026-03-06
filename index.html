@@ -98,11 +98,21 @@
             animation: popIn 0.5s ease-out 0.4s forwards;
         }
 
-        .hero-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .hero-bottle {
+            width: clamp(100px, 25vw, 160px);
+            height: auto;
+            margin-bottom: 1.5rem;
             opacity: 0;
-            animation: dropIn 0.6s ease-out 0.3s forwards;
+            animation: dropIn 0.6s ease-out 0.3s forwards, bottleFloat 4s ease-in-out infinite 1s;
+            filter: drop-shadow(0 20px 40px rgba(126, 217, 87, 0.2)) drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes bottleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-12px) rotate(2deg); }
+            75% { transform: translateY(-6px) rotate(-1.5deg); }
         }
 
         .hero-title {
@@ -563,7 +573,46 @@
 
     <img src="assets/1_HARIM+Icon Green.png" alt="סטודיו Harim" class="hero-logo">
 
-    <div class="hero-icon">🧴</div>
+    <svg class="hero-bottle" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cap -->
+        <rect x="72" y="4" width="56" height="28" rx="8" fill="#9B72CF"/>
+        <rect x="78" y="0" width="44" height="10" rx="5" fill="#b48ee0"/>
+        <!-- Neck -->
+        <rect x="80" y="30" width="40" height="24" rx="4" fill="#e8e8e8"/>
+        <!-- Handle -->
+        <path d="M120 38 Q155 38 155 75 Q155 110 130 115" stroke="#d0d0d0" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M120 38 Q150 38 150 75 Q150 106 128 112" stroke="#e8e8e8" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- Body -->
+        <path d="M60 54 Q60 54 55 80 L45 280 Q42 310 65 325 L135 325 Q158 310 155 280 L145 80 Q140 54 140 54 Z" fill="url(#bottleGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <!-- Body shine -->
+        <path d="M68 80 L62 270 Q60 295 72 310 L78 310 Q66 295 68 270 Z" fill="rgba(255,255,255,0.12)" rx="4"/>
+        <!-- Label area -->
+        <rect x="58" y="130" width="84" height="120" rx="12" fill="rgba(126,217,87,0.15)" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="0"/>
+        <!-- Label text - flower icon -->
+        <circle cx="100" cy="170" r="18" fill="none" stroke="#7ED957" stroke-width="2"/>
+        <circle cx="100" cy="170" r="6" fill="#7ED957" opacity="0.6"/>
+        <path d="M100 152 Q108 160 100 164 Q92 160 100 152Z" fill="#7ED957" opacity="0.4"/>
+        <path d="M100 176 Q108 168 100 164 Q92 168 100 176Z" fill="#7ED957" opacity="0.4"/>
+        <path d="M82 170 Q90 162 94 170 Q90 178 82 170Z" fill="#7ED957" opacity="0.4"/>
+        <path d="M118 170 Q110 162 106 170 Q110 178 118 170Z" fill="#7ED957" opacity="0.4"/>
+        <!-- Label text lines -->
+        <rect x="78" y="200" width="44" height="4" rx="2" fill="#7ED957" opacity="0.5"/>
+        <rect x="85" y="212" width="30" height="3" rx="1.5" fill="#7ED957" opacity="0.3"/>
+        <rect x="82" y="222" width="36" height="3" rx="1.5" fill="#7ED957" opacity="0.3"/>
+        <!-- 4L text -->
+        <text x="100" y="240" text-anchor="middle" fill="#7ED957" font-family="Heebo, sans-serif" font-size="14" font-weight="900" opacity="0.7">4L</text>
+        <!-- Bottom ridge -->
+        <ellipse cx="100" cy="325" rx="45" ry="6" fill="rgba(0,0,0,0.15)"/>
+        <!-- Liquid level hint -->
+        <path d="M52 250 Q55 245 100 248 Q145 251 148 250 L155 280 Q158 310 135 325 L65 325 Q42 310 45 280 Z" fill="rgba(126,217,87,0.08)"/>
+        <defs>
+            <linearGradient id="bottleGrad" x1="40" y1="54" x2="160" y2="325" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#f5f5f5"/>
+                <stop offset="40%" stop-color="#e8e8e8"/>
+                <stop offset="100%" stop-color="#d4d4d4"/>
+            </linearGradient>
+        </defs>
+    </svg>
 
     <div class="hero-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
